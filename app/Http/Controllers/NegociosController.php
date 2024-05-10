@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Negocios;
+use App\Models\Productos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -65,17 +66,17 @@ class NegociosController extends Controller
         if($request->hasFile('imagen')){
             // Eliminar imagen anterior
             if($negocio->imagen != 'default.png'){
-                if(file_exists(public_path('imagenes/negocios/'.$negocio->imagen))){
-                    unlink(public_path('imagenes/negocios/'.$negocio->imagen));
+                if(file_exists(public_path('/imagenes/negocios/'.$negocio->imagen))){
+                    unlink(public_path('/imagenes/negocios/'.$negocio->imagen));
                 }
             }
 
             $imagen = $request->file('imagen');
             $nombreImagen = uniqid('negocio_') . 'png';
-            if(!is_dir(public_path('imagenes/negocios/'))){
-                File::makeDirectory(public_path() . 'imagenes/negocios/', 0777, true);
+            if(!is_dir(public_path('/imagenes/negocios/'))){
+                File::makeDirectory(public_path() . '/imagenes/negocios/', 0777, true);
             }
-            $imagen->move(public_path().'imagenes/negocios/', $nombreImagen);
+            $imagen->move(public_path().'/imagenes/negocios/', $nombreImagen);
         }
 
         $negocio->nombre = $request->nombre;
@@ -104,6 +105,9 @@ class NegociosController extends Controller
     // show
     public function show($id){
         $negocio = Negocios::find($id);
-        return view('negocios.show', compact('negocio'));
+
+        $productos = Productos::where('negocio_id', $id)->orderBy('id', 'DESC')->paginate(10);
+
+        return view('negocios.show', compact('negocio', 'productos'));
     }
 }

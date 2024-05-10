@@ -20,16 +20,29 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/verificar', [App\Http\Controllers\HomeController::class, 'verificar'])->name('verificarOTP');
-Route::get('/reenviar', [App\Http\Controllers\HomeController::class, 'reenviar'])->name('reenviarOTP');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::post('/verificar', [App\Http\Controllers\HomeController::class, 'verificar'])->name('verificarOTP');
+    Route::get('/reenviar', [App\Http\Controllers\HomeController::class, 'reenviar'])->name('reenviarOTP');
 
-// RUTAS PARA NEGOCIOS
-Route::get('/negocios', [App\Http\Controllers\NegociosController::class, 'index']);
-Route::get('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'create']);
-Route::post('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'store']);
-Route::get('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'edit']);
-Route::put('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'update']);
-Route::get('/negocios/estado/{id}', [App\Http\Controllers\NegociosController::class, 'estado']);
-Route::get('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);
+    // RUTAS PARA NEGOCIOS
+    Route::get('/negocios', [App\Http\Controllers\NegociosController::class, 'index']);
+    Route::get('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'create']);
+    Route::post('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'store']);
+    Route::get('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'edit']);
+    Route::put('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'update']);
+    Route::get('/negocios/estado/{id}', [App\Http\Controllers\NegociosController::class, 'estado']);
+    Route::get('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);
+
+    // RUTAS PARA PRODUCTOS
+    Route::get('/productos', [App\Http\Controllers\ProductosController::class, 'index']);
+    Route::get('/productos/registrar', [App\Http\Controllers\ProductosController::class, 'create']);
+    Route::post('/productos/registrar', [App\Http\Controllers\ProductosController::class, 'store']);
+    Route::get('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'edit']);
+    Route::put('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'update']);
+    Route::get('/productos/estado/{id}', [App\Http\Controllers\ProductosController::class, 'estado']);
+});
+
+
+
 
