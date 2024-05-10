@@ -23,3 +23,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/verificar', [App\Http\Controllers\HomeController::class, 'verificar'])->name('verificarOTP');
 Route::get('/reenviar', [App\Http\Controllers\HomeController::class, 'reenviar'])->name('reenviarOTP');
+
+// RUTAS PARA NEGOCIOS
+Route::get('/negocios', [App\Http\Controllers\NegociosController::class, 'index']);
+Route::get('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'create']);
+Route::post('/negocios/registrar', [App\Http\Controllers\NegociosController::class, 'store']);
+Route::get('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'edit']);
+Route::put('/negocios/actualizar/{id}', [App\Http\Controllers\NegociosController::class, 'update']);
+Route::get('/negocios/estado/{id}', [App\Http\Controllers\NegociosController::class, 'estado']);
+Route::get('/negocios/ver/{id}', [App\Http\Controllers\NegociosController::class, 'show']);
+
