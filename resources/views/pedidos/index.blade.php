@@ -53,10 +53,12 @@
                                     <td>{{ $item->total }}</td>
                                     <td>{{ $item->fecha }}</td>
                                     <td>
-                                        @if ($item->estado == 'Entregado')
-                                            <span class="badge badge-success">Entregado</span>
-                                        @else
+                                        @if($item->estado == 'Pendiente')
                                             <span class="badge badge-danger">Pendiente</span>
+                                        @elseif($item->estado == 'Enviado')
+                                            <span class="badge badge-warning">Enviado</span>
+                                        @else
+                                            <span class="badge badge-success">Entregado</span>
                                         @endif
                                     </td>
                                     <td>

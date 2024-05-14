@@ -36,13 +36,32 @@
                             <p><b>Comentario:</b> <br> {{ $pedido->comentario }}</p>
                             <p><b>Coordenadas:</b> <br> {{ $pedido->coordenadas }}</p>
                             <p><b>Estado:</b>
-                                @if ($pedido->estado == 'Entregado')
-                                    <span class="badge badge-success">Entregado</span>
+                                @if($pedido->estado == 'Pendiente')
+                                    <span class="badge badge-danger">Pendiente</span>
+                                @elseif($pedido->estado == 'Enviado')
+                                    <span class="badge badge-warning">Enviado</span>
                                 @else
-                                    <span class="badge badge-danger">{{ $pedido->estado }}</span>
+                                    <span class="badge badge-success">Entregado</span>
                                 @endif
                             </p>
                             <p><b>Fecha:</b> {{ $pedido->fecha }}</p>
+
+                            <hr>
+
+                            <h4>Cambiar estado</h4>
+                            <div class="dropdown">
+                                <button class="btn @if($pedido->estado == 'Pendiente') btn-danger @elseif($pedido->estado == 'Enviado') btn-warning @else btn-success @endif  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                  {{ $pedido->estado }}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" @if($pedido->estado == 'Pendiente') href="#" @else href="{{ url('/pedidos/estado/' . $pedido->id .'/Pendiente') }}"  @endif  >Pendiente</a>
+                                    <a class="dropdown-item" @if($pedido->estado == 'Enviado') href="#" @else href="{{ url('/pedidos/estado/' . $pedido->id .'/Enviado') }}"  @endif>Enviado</a>
+                                    <a class="dropdown-item" @if($pedido->estado == 'Entregado') href="#" @else href="{{ url('/pedidos/estado/' . $pedido->id .'/Entregado') }}"  @endif>Entregado</a>
+                                </div>
+                            </div>
+
+
+
                         </div>
                         <div class="m-3 text-center">
                             <a href="{{ url('/pedidos') }}" class="btn btn-primary">Volver al listado</a>

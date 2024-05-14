@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     // RUTAS PARA PEDIDOS
     Route::get('/pedidos', [App\Http\Controllers\PedidosController::class, 'index']);
     Route::get('/pedidos/registrar', [App\Http\Controllers\PedidosController::class, 'create']);
-    Route::put('/pedidos/estado/{id}', [App\Http\Controllers\PedidosController::class, 'cambiarEstado']);
+    Route::get('/pedidos/estado/{id}/{estado}', [App\Http\Controllers\PedidosController::class, 'cambiarEstado']);
     Route::get('/pedidos/ver/{id}', [App\Http\Controllers\PedidosController::class, 'show']);
 });
 
