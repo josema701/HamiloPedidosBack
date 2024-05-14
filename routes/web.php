@@ -41,6 +41,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'edit']);
     Route::put('/productos/actualizar/{id}', [App\Http\Controllers\ProductosController::class, 'update']);
     Route::get('/productos/estado/{id}', [App\Http\Controllers\ProductosController::class, 'estado']);
+
+    // RUTAS PARA PEDIDOS
+    Route::get('/pedidos', [App\Http\Controllers\PedidosController::class, 'index']);
+    Route::get('/pedidos/registrar', [App\Http\Controllers\PedidosController::class, 'create']);
+    Route::put('/pedidos/estado/{id}', [App\Http\Controllers\PedidosController::class, 'cambiarEstado']);
+    Route::get('/pedidos/ver/{id}', [App\Http\Controllers\PedidosController::class, 'show']);
 });
 
 
