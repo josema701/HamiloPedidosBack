@@ -24,7 +24,7 @@
         <div class="row justify-content-center">
 
             <div class="col-12">
-                <h3>Cantida de pedidos</h3>
+                <h3>Cantidad de pedidos</h3>
             </div>
             <div class="col-lg-4 col-6">
                 <div class="small-box bg-info">

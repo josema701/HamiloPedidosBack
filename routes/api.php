@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\PedidosController;
+use App\Http\Controllers\Api\NegociosController;
+use App\Http\Controllers\Api\ProductosController;
+use App\Http\Controllers\Api\AutenticacionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +20,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/register', [AutenticacionController::class, 'registro']);
+Route::post('/login', [AutenticacionController::class, 'login']);
+
+Route::group(["middleware" => "auth:sanctum"], function () {
+    Route::post('/verificar', [AutenticacionController::class, 'verificar']);
+});
+
+Route::get('/negocios', [NegociosController::class, 'index']);
+Route::get('/productos/{id}', [ProductosController::class, 'index']);
+Route::post('/pedidos/registrar', [PedidosController::class, 'store']);
+Route::get('/pedidos/historial/{cliente_id}', [PedidosController::class, 'historial']);
