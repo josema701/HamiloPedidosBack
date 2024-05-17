@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\File;
 class NegociosController extends Controller
 {
     public function index(){
-        $negocios = Negocios::orderBy('id', 'desc')->paginate(10);
+        $arrayNeg = Negocios::where('usuario_id', auth()->user()->id)->get()->pluck('id');
+
+        $negocios = Negocios::whereIn('id', $arrayNeg)->orderBy('id', 'desc')->paginate(10);
+
         return view('negocios.index', compact('negocios'));
     }
 

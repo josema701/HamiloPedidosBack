@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedidos;
 use Twilio\Rest\Client;
+use App\Models\Negocios;
 use Illuminate\Http\Request;
 
 class PedidosController extends Controller
 {
     public function index(){
-        $pedidos = Pedidos::with('cliente', 'negocio')->orderBy('id', 'desc')->paginate(10);
+        $arrayNeg = Negocios::where('usuario_id', auth()->user()->id)->get()->pluck('id');
+
+        $pedidos = Pedidos::with('cliente', 'negocio')
+                            ->whereIn('negocio_id', $arrayNeg)
+                            ->orderBy('id', 'desc')
+                            ->paginate(10);
 
         return view('pedidos.index', compact('pedidos'));
     }
